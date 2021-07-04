@@ -22,28 +22,28 @@ public class RequestController {
 
 	@GetMapping("/sum")
 	public void sumRequest(@RequestParam(defaultValue = "0.0") float a, @RequestParam(defaultValue = "0.0") float b) {
-		Operation operation = new Operation("SUM", a, b);
+		Operation operation = new Operation(Operation.OperationType.SUM, a, b);
 		rabbitMqSender.send(operation);
         System.out.println("SUM operation with operands: " + a + "|" + b);
 	}
 
     @GetMapping("/sub")
 	public void subRequest(@RequestParam(defaultValue = "0.0") float a, @RequestParam(defaultValue = "0.0") float b) {
-		Operation operation = new Operation("SUB", a, b);
+		Operation operation = new Operation(Operation.OperationType.SUBTRACTION, a, b);
 		rabbitMqSender.send(operation);
         System.out.println("SUBTRACTION operation with operands: " + a + "|" + b);
 	}
 
     @GetMapping("/div")
 	public void divRequest(@RequestParam(defaultValue = "1.0") float a, @RequestParam(defaultValue = "1.0") float b) {
-		Operation operation = new Operation("DIV", a, b);
+		Operation operation = new Operation(Operation.OperationType.DIVISION, a, b);
 		rabbitMqSender.send(operation);
         System.out.println("DIVISION operation with operands: " + a + "|" + b);
 	}
 
     @GetMapping("/mult")
 	public void multRequest(@RequestParam(defaultValue = "1.0") float a, @RequestParam(defaultValue = "1.0") float b) {
-		Operation operation = new Operation("MULT", a, b);
+		Operation operation = new Operation(Operation.OperationType.MULTIPLICATION, a, b);
 		rabbitMqSender.send(operation);
         System.out.println("MULTIPLICATION operation with operands: " + a + "|" + b);
 	}

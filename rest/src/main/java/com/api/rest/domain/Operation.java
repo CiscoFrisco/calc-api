@@ -10,11 +10,18 @@ import java.io.Serializable;
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id", scope = Operation.class)
 public class Operation implements Serializable {
 
-    private String operationId;
+    public enum OperationType {
+        SUM,
+        SUBTRACTION,
+        DIVISION,
+        MULTIPLICATION
+    }
+
+    private OperationType operationId;
     private float firstOperand;
     private float secondOperand;
 
-    public Operation(String operationId, float firstOperand, float secondOperand) {
+    public Operation(OperationType operationId, float firstOperand, float secondOperand) {
         this.operationId = operationId;
         this.firstOperand = firstOperand;
         this.secondOperand = secondOperand;
@@ -22,11 +29,11 @@ public class Operation implements Serializable {
 
     public Operation() {}
 
-    public String getOperationId() {
+    public OperationType getOperationId() {
         return operationId;
     }
 
-    public void setOperationId(String operationId) {
+    public void setOperationId(OperationType operationId) {
         this.operationId = operationId;
     }
 

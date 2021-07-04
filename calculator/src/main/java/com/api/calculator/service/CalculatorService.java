@@ -1,23 +1,25 @@
-package com.api.calculator;
+package com.challenge.calculator.service;
 
 import org.springframework.stereotype.Service;
+
+import com.challenge.calculator.domain.Operation;
 
 @Service
 public class CalculatorService {
 
-	public float add(float first, float second){
+	public static float add(float first, float second){
 		return first + second;
 	}
 
-	public float subtract(float first, float second){
+	public static float subtract(float first, float second){
 		return first - second;
 	}
 
-	public float divide(float first, float second){
+	public static float divide(float first, float second){
 		return first / second;
 	}
 
-	public float multiply(float first, float second){
+	public static float multiply(float first, float second){
 		return first * second;
 	}
 }
