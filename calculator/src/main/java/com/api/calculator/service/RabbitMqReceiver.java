@@ -1,6 +1,6 @@
 package com.challenge.calculator.service;
 
-import com.challenge.calculator.domain.Operation;
+import com.challenge.calculator.model.Operation;
 import com.challenge.calculator.service.CalculatorService;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -16,7 +16,7 @@ public class RabbitMqReceiver implements RabbitListenerConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(RabbitMqReceiver.class);
 
     @RabbitListener(queues = "${spring.rabbitmq.queue}")
-    public void receivedMessage(Operation operation) {
+    public float receivedMessage(Operation operation) {
         
         logger.info("Operation Details Received is.. " + operation);
 
@@ -40,6 +40,7 @@ public class RabbitMqReceiver implements RabbitListenerConfigurer {
         }
 
         logger.info("Calculated result of.. " + result);
+        return result;
     }
 
     @Override

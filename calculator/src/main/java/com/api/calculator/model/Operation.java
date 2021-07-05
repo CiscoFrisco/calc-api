@@ -1,4 +1,4 @@
-package com.challenge.calculator.domain;
+package com.challenge.calculator.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;

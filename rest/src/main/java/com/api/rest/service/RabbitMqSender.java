@@ -1,6 +1,6 @@
 package com.challenge.rest.service;
 
-import com.challenge.rest.domain.Operation;
+import com.challenge.rest.model.Operation;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,9 +21,8 @@ public class RabbitMqSender {
     @Value("${spring.rabbitmq.routingkey}")
     private String routingkey;
 
-    public void send(Operation operation){
-        rabbitTemplate.convertAndSend(exchange,routingkey, operation);
-
+    public float send(Operation operation){
+        return (float) rabbitTemplate.convertSendAndReceive(exchange,routingkey, operation);
     }
 
 }

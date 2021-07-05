@@ -2,7 +2,7 @@ package com.challenge.calculator.service;
 
 import org.springframework.stereotype.Service;
 
-import com.challenge.calculator.domain.Operation;
+import com.challenge.calculator.model.Operation;
 
 @Service
 public class CalculatorService {

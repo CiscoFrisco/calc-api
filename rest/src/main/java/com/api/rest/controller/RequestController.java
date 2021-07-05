@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.challenge.rest.domain.Operation;
+import com.challenge.rest.model.Operation;
 import com.challenge.rest.service.RabbitMqSender;
 
 @RestController
@@ -21,30 +21,30 @@ public class RequestController {
     }
 
 	@GetMapping("/sum")
-	public void sumRequest(@RequestParam(defaultValue = "0.0") float a, @RequestParam(defaultValue = "0.0") float b) {
+	public float sumRequest(@RequestParam(defaultValue = "0.0") float a, @RequestParam(defaultValue = "0.0") float b) {
 		Operation operation = new Operation(Operation.OperationType.SUM, a, b);
-		rabbitMqSender.send(operation);
-        System.out.println("SUM operation with operands: " + a + "|" + b);
+		float response = rabbitMqSender.send(operation);
+		return response;
 	}
 
     @GetMapping("/sub")
-	public void subRequest(@RequestParam(defaultValue = "0.0") float a, @RequestParam(defaultValue = "0.0") float b) {
+	public float subRequest(@RequestParam(defaultValue = "0.0") float a, @RequestParam(defaultValue = "0.0") float b) {
 		Operation operation = new Operation(Operation.OperationType.SUBTRACTION, a, b);
-		rabbitMqSender.send(operation);
-        System.out.println("SUBTRACTION operation with operands: " + a + "|" + b);
+		float response = rabbitMqSender.send(operation);
+		return response;
 	}
 
     @GetMapping("/div")
-	public void divRequest(@RequestParam(defaultValue = "1.0") float a, @RequestParam(defaultValue = "1.0") float b) {
+	public float divRequest(@RequestParam(defaultValue = "1.0") float a, @RequestParam(defaultValue = "1.0") float b) {
 		Operation operation = new Operation(Operation.OperationType.DIVISION, a, b);
-		rabbitMqSender.send(operation);
-        System.out.println("DIVISION operation with operands: " + a + "|" + b);
+		float response = rabbitMqSender.send(operation);
+		return response;
 	}
 
     @GetMapping("/mult")
-	public void multRequest(@RequestParam(defaultValue = "1.0") float a, @RequestParam(defaultValue = "1.0") float b) {
+	public float multRequest(@RequestParam(defaultValue = "1.0") float a, @RequestParam(defaultValue = "1.0") float b) {
 		Operation operation = new Operation(Operation.OperationType.MULTIPLICATION, a, b);
-		rabbitMqSender.send(operation);
-        System.out.println("MULTIPLICATION operation with operands: " + a + "|" + b);
+		float response = rabbitMqSender.send(operation);
+		return response;
 	}
 }
