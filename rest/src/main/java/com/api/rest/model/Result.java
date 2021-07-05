@@ -7,21 +7,21 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 @Component
-public class Result implements Serializable {
+public class Result<T> implements Serializable {
 
-    private float result;
+    private T result;
 
-    public Result(float result) {
+    public Result(T result) {
         this.result = result;
     }
 
     public Result() {}
 
-    public float getResult() {
+    public T getResult() {
         return result;
     }
 
-    public void setResult(float result) {
+    public void setResult(T result) {
         this.result = result;
     }
 

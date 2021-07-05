@@ -38,8 +38,13 @@ public class RequestController {
     @GetMapping("/div")
 	public Result divRequest(@RequestParam(defaultValue = "1.0") float a, @RequestParam(defaultValue = "1.0") float b) {
 		Operation operation = new Operation(Operation.OperationType.DIVISION, a, b);
-		Result response = new Result(rabbitMqSender.send(operation));
-		return response;
+		if(b == 0.0){
+			return new Result("Cannot divide by 0");
+		}
+		else{
+			Result response = new Result(rabbitMqSender.send(operation));
+			return response;
+		}
 	}
 
     @GetMapping("/mult")
