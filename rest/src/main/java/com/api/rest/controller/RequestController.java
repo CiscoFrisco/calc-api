@@ -11,6 +11,9 @@ import com.challenge.rest.model.Operation;
 import com.challenge.rest.model.Result;
 import com.challenge.rest.service.RabbitMqSender;
 
+import javax.servlet.http.HttpServletResponse;
+import java.lang.String;
+
 @RestController
 public class RequestController {
 
@@ -22,35 +25,36 @@ public class RequestController {
     }
 
 	@GetMapping("/sum")
-	public Result sumRequest(@RequestParam(defaultValue = "0.0") float a, @RequestParam(defaultValue = "0.0") float b) {
+	public Result sumRequest(@RequestParam(defaultValue = "0.0") float a, @RequestParam(defaultValue = "0.0") float b, HttpServletResponse response) {
 		Operation operation = new Operation(Operation.OperationType.SUM, a, b);
-		Result response = new Result(rabbitMqSender.send(operation));
-		return response;
+		response.addHeader("Request-ID", String.valueOf(operation.getRequestID()));
+		return new Result(rabbitMqSender.send(operation));
 	}
 
     @GetMapping("/sub")
-	public Result subRequest(@RequestParam(defaultValue = "0.0") float a, @RequestParam(defaultValue = "0.0") float b) {
+	public Result subRequest(@RequestParam(defaultValue = "0.0") float a, @RequestParam(defaultValue = "0.0") float b, HttpServletResponse response) {
 		Operation operation = new Operation(Operation.OperationType.SUBTRACTION, a, b);
-		Result response = new Result(rabbitMqSender.send(operation));
-		return response;
+		response.addHeader("Request-ID", String.valueOf(operation.getRequestID()));
+		return new Result(rabbitMqSender.send(operation));
 	}
 
     @GetMapping("/div")
-	public Result divRequest(@RequestParam(defaultValue = "1.0") float a, @RequestParam(defaultValue = "1.0") float b) {
+	public Result divRequest(@RequestParam(defaultValue = "1.0") float a, @RequestParam(defaultValue = "1.0") float b, HttpServletResponse response) {
 		Operation operation = new Operation(Operation.OperationType.DIVISION, a, b);
 		if(b == 0.0){
+			response.addHeader("Request-ID", String.valueOf(operation.getRequestID()));
 			return new Result("Cannot divide by 0");
 		}
 		else{
-			Result response = new Result(rabbitMqSender.send(operation));
-			return response;
+			response.addHeader("Request-ID", String.valueOf(operation.getRequestID()));
+			return new Result(rabbitMqSender.send(operation));
 		}
 	}
 
     @GetMapping("/mult")
-	public Result multRequest(@RequestParam(defaultValue = "1.0") float a, @RequestParam(defaultValue = "1.0") float b) {
+	public Result multRequest(@RequestParam(defaultValue = "1.0") float a, @RequestParam(defaultValue = "1.0") float b, HttpServletResponse response) {
 		Operation operation = new Operation(Operation.OperationType.MULTIPLICATION, a, b);
-		Result response = new Result(rabbitMqSender.send(operation));
-		return response;
+		response.addHeader("Request-ID", String.valueOf(operation.getRequestID()));
+		return new Result(rabbitMqSender.send(operation));
 	}
 }
