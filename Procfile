@@ -1,2 +1,2 @@
-rest :  ./mvnw spring-boot:run -pl rest
-calulator :  ./mvnw spring-boot:run -pl calculator
+web :  ./mvnw spring-boot:run -pl rest
+web :  ./mvnw spring-boot:run -pl calculator
